@@ -16,17 +16,17 @@ spec:
       containers:
         - name: multitool
           image: wbitt/network-multitool
-          volumeMounts: # Монтируем вольюм с именем my-volume в контейнер nginx в папку /static
+          volumeMounts: # Монтируем вольюм с именем common-volume в контейнер multitool
             - mountPath: "/multitool_dir"
               name: common-volume
 
         - name: busybox # Имя контейнера 2
           image: busybox # Образ контейнера 2
           command: ['sh', '-c', 'while true; do echo "pinhhhh date = $(date)" >> /busybox_dir/date.log; sleep 5; done']
-          volumeMounts: # Монтируем вольюм с именем my-volume в контейнер nginx в папку /static
+          volumeMounts: # Монтируем вольюм с именем common-volume в контейнер busybox
             - mountPath: "/busybox_dir"
               name: common-volume
 
       volumes:
-        - name: common-volume # Описываем вольюм эмптидир с именем my-volume
+        - name: common-volume # Описываем вольюм эмптидир с именем common-volume
           emptyDir: {}
