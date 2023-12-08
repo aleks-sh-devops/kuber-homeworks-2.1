@@ -51,6 +51,99 @@ lesson5           Active   3d6h
 dz6               Active   14s
 ```
 
+Запускаю манифест и проверяю доступность общих файлов:
+```
+usrcon@cli-k8s-01:~/manifests/05_dz_kuber_2.1$ kubectl apply -f ~/manifests/05_dz_kuber_2.1/02_deploy_busybox_multitool.yml
+deployment.apps/app-multitool-busybox created
+usrcon@cli-k8s-01:~/manifests/05_dz_kuber_2.1$ kubectl get pods -n dz6
+NAME                                     READY   STATUS    RESTARTS   AGE
+app-multitool-busybox-7bf96cc9b6-zsvkt   2/2     Running   0          11s
+kubectl exec -n dz6  app-multitool-busybox-7bf96cc9b6-zsvkt -c multitool -it -- bash
+app-multitool-busybox-7bf96cc9b6-zsvkt:/# ls -lah /
+total 84K
+drwxr-xr-x    1 root     root        4.0K Dec  8 20:01 .
+drwxr-xr-x    1 root     root        4.0K Dec  8 20:01 ..
+drwxr-xr-x    1 root     root        4.0K Sep 14 11:11 bin
+drwx------    2 root     root        4.0K Sep 14 11:11 certs
+drwxr-xr-x    5 root     root         360 Dec  8 20:01 dev
+drwxr-xr-x    1 root     root        4.0K Sep 14 11:11 docker
+drwxr-xr-x    1 root     root        4.0K Dec  8 20:01 etc
+drwxr-xr-x    2 root     root        4.0K Aug  7 13:09 home
+drwxr-xr-x    1 root     root        4.0K Sep 14 11:11 lib
+drwxr-xr-x    5 root     root        4.0K Aug  7 13:09 media
+drwxr-xr-x    2 root     root        4.0K Aug  7 13:09 mnt
+drwxrwxrwx    2 root     root        4.0K Dec  8 20:01 multitool_dir
+drwxr-xr-x    2 root     root        4.0K Aug  7 13:09 opt
+dr-xr-xr-x  289 root     root           0 Dec  8 20:01 proc
+drwx------    2 root     root        4.0K Aug  7 13:09 root
+drwxr-xr-x    1 root     root        4.0K Dec  8 20:01 run
+drwxr-xr-x    1 root     root        4.0K Sep 14 11:11 sbin
+drwxr-xr-x    2 root     root        4.0K Aug  7 13:09 srv
+dr-xr-xr-x   13 root     root           0 Dec  8 20:01 sys
+drwxrwxrwt    2 root     root        4.0K Aug  7 13:09 tmp
+drwxr-xr-x    1 root     root        4.0K Aug  7 13:09 usr
+drwxr-xr-x    1 root     root        4.0K Sep 14 11:11 var
+app-multitool-busybox-7bf96cc9b6-zsvkt:/# ls -lah /multitool_dir/
+total 12K
+drwxrwxrwx    2 root     root        4.0K Dec  8 20:01 .
+drwxr-xr-x    1 root     root        4.0K Dec  8 20:01 ..
+-rw-r--r--    1 root     root        1.9K Dec  8 20:05 date.log
+app-multitool-busybox-7bf96cc9b6-zsvkt:/# cat /multitool_dir/date.log
+pinhhhh date = Fri Dec  8 20:01:59 UTC 2023
+pinhhhh date = Fri Dec  8 20:02:04 UTC 2023
+pinhhhh date = Fri Dec  8 20:02:09 UTC 2023
+pinhhhh date = Fri Dec  8 20:02:14 UTC 2023
+pinhhhh date = Fri Dec  8 20:02:19 UTC 2023
+pinhhhh date = Fri Dec  8 20:02:24 UTC 2023
+pinhhhh date = Fri Dec  8 20:02:29 UTC 2023
+pinhhhh date = Fri Dec  8 20:02:34 UTC 2023
+pinhhhh date = Fri Dec  8 20:02:39 UTC 2023
+pinhhhh date = Fri Dec  8 20:02:44 UTC 2023
+pinhhhh date = Fri Dec  8 20:02:49 UTC 2023
+pinhhhh date = Fri Dec  8 20:02:54 UTC 2023
+pinhhhh date = Fri Dec  8 20:02:59 UTC 2023
+pinhhhh date = Fri Dec  8 20:03:04 UTC 2023
+pinhhhh date = Fri Dec  8 20:03:09 UTC 2023
+pinhhhh date = Fri Dec  8 20:03:14 UTC 2023
+pinhhhh date = Fri Dec  8 20:03:19 UTC 2023
+pinhhhh date = Fri Dec  8 20:03:24 UTC 2023
+pinhhhh date = Fri Dec  8 20:03:29 UTC 2023
+pinhhhh date = Fri Dec  8 20:03:34 UTC 2023
+pinhhhh date = Fri Dec  8 20:03:39 UTC 2023
+pinhhhh date = Fri Dec  8 20:03:44 UTC 2023
+pinhhhh date = Fri Dec  8 20:03:49 UTC 2023
+pinhhhh date = Fri Dec  8 20:03:54 UTC 2023
+pinhhhh date = Fri Dec  8 20:03:59 UTC 2023
+pinhhhh date = Fri Dec  8 20:04:04 UTC 2023
+pinhhhh date = Fri Dec  8 20:04:09 UTC 2023
+pinhhhh date = Fri Dec  8 20:04:14 UTC 2023
+pinhhhh date = Fri Dec  8 20:04:19 UTC 2023
+pinhhhh date = Fri Dec  8 20:04:24 UTC 2023
+pinhhhh date = Fri Dec  8 20:04:29 UTC 2023
+pinhhhh date = Fri Dec  8 20:04:34 UTC 2023
+pinhhhh date = Fri Dec  8 20:04:39 UTC 2023
+pinhhhh date = Fri Dec  8 20:04:44 UTC 2023
+pinhhhh date = Fri Dec  8 20:04:49 UTC 2023
+pinhhhh date = Fri Dec  8 20:04:54 UTC 2023
+pinhhhh date = Fri Dec  8 20:04:59 UTC 2023
+pinhhhh date = Fri Dec  8 20:05:04 UTC 2023
+pinhhhh date = Fri Dec  8 20:05:09 UTC 2023
+pinhhhh date = Fri Dec  8 20:05:14 UTC 2023
+pinhhhh date = Fri Dec  8 20:05:19 UTC 2023
+pinhhhh date = Fri Dec  8 20:05:24 UTC 2023
+pinhhhh date = Fri Dec  8 20:05:29 UTC 2023
+pinhhhh date = Fri Dec  8 20:05:34 UTC 2023
+pinhhhh date = Fri Dec  8 20:05:39 UTC 2023
+pinhhhh date = Fri Dec  8 20:05:44 UTC 2023
+pinhhhh date = Fri Dec  8 20:05:49 UTC 2023
+pinhhhh date = Fri Dec  8 20:05:54 UTC 2023
+pinhhhh date = Fri Dec  8 20:05:59 UTC 2023
+app-multitool-busybox-7bf96cc9b6-zsvkt:/# exit
+exit
+```
+
+Успех!
+
 ------
 
 ### Задание 2
