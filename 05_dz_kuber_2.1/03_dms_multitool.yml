@@ -15,10 +15,10 @@ spec:
       containers:
         - name: multitool
           image: wbitt/network-multitool
-          volumeMounts: # Монтируем вольюм с именем my-volume в контейнер busybox в папку /data
+          volumeMounts: # Монтируем вольюм с именем log-volume в контейнер multitool
             - mountPath: "/log_data"
               name: log-volume
       volumes:
-        - name: log-volume # Описываем вольюм хостпас с именем my-volume
+        - name: log-volume # Описываем вольюм хостпас с именем log-volume
           hostPath:
             path: /var/log
