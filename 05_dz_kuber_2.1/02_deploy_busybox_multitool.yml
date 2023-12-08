@@ -1,0 +1,32 @@
+apiVersion: apps/v1 # Версия api изменилось и теперь выглядит так
+kind: Deployment
+metadata:
+  name: app-multitool-busybox # Имя деплоймента
+  namespace: dz6 # Пространство имен
+spec:
+  replicas: 1 # Количество реплик
+  selector: # Селектор на наши метки
+    matchLabels:
+      app: myapp
+  template: # Шаблон ПОДа
+    metadata:
+      labels: # Метки, которые будут установлены при запуске ПОДа из этого шаблона
+        app: myapp
+    spec:
+      containers:
+        - name: multitool
+          image: wbitt/network-multitool
+          volumeMounts: # Монтируем вольюм с именем my-volume в контейнер nginx в папку /static
+            - mountPath: "/multitool_dir"
+              name: common-volume
+
+        - name: busybox # Имя контейнера 2
+          image: busybox # Образ контейнера 2
+          command: ['sh', '-c', 'while true; do echo "pinhhhh date = $(date)" >> /busybox_dir/date.log; sleep 5; done']
+          volumeMounts: # Монтируем вольюм с именем my-volume в контейнер nginx в папку /static
+            - mountPath: "/busybox_dir"
+              name: common-volume
+
+      volumes:
+        - name: common-volume # Описываем вольюм эмптидир с именем my-volume
+          emptyDir: {}
